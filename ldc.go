@@ -229,7 +229,6 @@ func main() {
 		for event := sdl.PollEvent(); event != nil; event = sdl.PollEvent() {
 			switch t := event.(type) {
 			case *sdl.QuitEvent:
-				println("Quit")
 				running = false
 			case *sdl.KeyboardEvent:
 				onKeyboard(*t)
