@@ -28,6 +28,11 @@ type Element struct {
 	Name string
 }
 
+type Particle struct {
+	Element Element
+	Temp float32
+}
+
 func NewGame(screenX, screenY int32) Game {
 	// Setup Futhark-side stuff.
 	cfg := C.futhark_context_config_new()
@@ -126,13 +131,14 @@ func (g Game) Elements() []Element {
 	return ret
 }
 
-func (g Game) ElementAt(ul_x, ul_y, scale float64, x, y int32) Element {
+func (g Game) ParticleAt(ul_x, ul_y, scale float64, x, y int32) Particle {
 	var element C.uchar
+	var temp C.float
 	C.futhark_entry_element_at(
-		g.ctx, &element, g.state,
+		g.ctx, &element, &temp, g.state,
 		C.float(ul_x), C.float(ul_y), C.float(scale), g.screenX, g.screenY,
 		C.int32_t(x), C.int32_t(y))
-	return Element{element, g.elementName(element)}
+	return Particle{Element{element, g.elementName(element)}, float32(temp)}
 }
 
 func (g Game) elementName(element C.uchar) string {

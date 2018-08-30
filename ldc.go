@@ -131,9 +131,10 @@ func main() {
 				"Inserting %s (radius %d)",
 				insertable_elements[selected_element].Name, radius),
 			0, int32(text_size+5))
+		p := game.ParticleAt(ul_x, ul_y, scale, last_mouse_x, last_mouse_y)
 		showText(
 			fmt.Sprintf(
-				"Under cursor %s", game.ElementAt(ul_x, ul_y, scale, last_mouse_x, last_mouse_y).Name),
+				"Under cursor: %s (temp: %.1f°C)", p.Element.Name, p.Temp-273),
 			0, int32((text_size+5)*2))
 
 		window.UpdateSurface()
