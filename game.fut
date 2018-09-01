@@ -35,8 +35,6 @@ let new_game_with (ww:i32,wh:i32) (e: particle): ext_game_state =
 
 entry new_game (ww: i32) (wh: i32): ext_game_state =
   new_game_with (ww,wh) empty
-entry new_game_random (ww: i32) (wh: i32): ext_game_state =
-  new_game_with (ww,wh) { element = turnip, temp = initialTemp turnip }
 
 entry step ({generation=gen,hoods,width=ww,height=wh}: ext_game_state): ext_game_state =
   let hoods' = one_step (gen+1) (shiftHoods (gen%2) hoods)
@@ -87,8 +85,6 @@ let elemColour (pos: (i32, i32)) (p: particle): i32 =
   then metalColour pos
   else if x == napalm
   then dark orange
-  else if x == turnip
-  then violet
   else if x == wall
   then wallColour pos
   else if isFire p
@@ -193,7 +189,6 @@ entry insertable_elements() =
   , spout
   , metal
   , napalm
-  , turnip
   , wall ]
 
 entry element_name(x: element): []i32 =
@@ -211,7 +206,6 @@ entry element_name(x: element): []i32 =
   else if x == spout then "spout"
   else if x == metal then "metal"
   else if x == napalm then "napalm"
-  else if x == turnip then "random"
   else if x == wall then "wall"
   else "unnamed element"
 

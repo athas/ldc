@@ -20,7 +20,6 @@ let torch: element = 23u8
 let plant: element = 24u8
 let spout: element = 25u8
 let metal: element = 26u8
-let turnip: element = 28u8
 let wall: element = 29u8
 let napalm: element = 30u8
 
@@ -41,8 +40,7 @@ let elems: []element = [ nothing
                        , plant
                        , spout
                        , metal
-                       , napalm
-                       , turnip ]
+                       , napalm ]
 
 let num_elems: i32 = length elems
 
@@ -77,6 +75,7 @@ let conductivity (p: particle): f32 =
 let age (r: i32) (p: particle): particle =
   let {element=x, temp} = p in
   if x == fire_end then {element=nothing, temp}
-  else if isFire p then if r < 5000 then {element=x + 1u8, temp} else p
-  else if x == turnip then unsafe {element=elems[r%num_elems], temp}
+  else if isFire p then if r < 5000
+                        then {element=x + 1u8, temp}
+                        else p
   else p
