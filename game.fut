@@ -83,8 +83,6 @@ let elemColour (pos: (i32, i32)) (p: particle): i32 =
   then blue
   else if x == metal
   then metalColour pos
-  else if x == napalm
-  then dark orange
   else if x == wall
   then wallColour pos
   else if isFire p
@@ -188,7 +186,6 @@ entry insertable_elements() =
   , plant
   , spout
   , metal
-  , napalm
   , wall ]
 
 entry element_name(x: element): []i32 =
@@ -205,13 +202,12 @@ entry element_name(x: element): []i32 =
   else if x == plant then "plant"
   else if x == spout then "spout"
   else if x == metal then "metal"
-  else if x == napalm then "napalm"
   else if x == wall then "wall"
   else "unnamed element"
 
 entry element_at ({generation=gen,hoods,width=ww,height=wh}: ext_game_state)
                  (ul_x: f32) (ul_y: f32) (s: f32) (sw: i32) (sh: i32) (b1: i32) (b2: i32)
-                : (u8, f32) =
+                : (element, f32) =
   let (x,y) = screen_point_to_world_point (ul_x,ul_y) s (sw,sh) (ww,wh) (b1,b2)
   let offset = gen % 2
   let p = worldIndex empty offset hoods (x,y)

@@ -39,9 +39,9 @@ let applyAlchemy (r: i32) (xp: particle) (yp: particle) : (particle, particle) =
   then p (fire, fire)
 
   -- torch/napalm + nothing = torch/napalm + fire
-  else if x == nothing && (y == torch || y == napalm)
+  else if x == nothing && y == torch
   then ({element=fire, temp=initialTemp fire}, yp)
-  else if (x == torch || y == napalm) && y == nothing
+  else if x == torch && y == nothing
   then (xp, {element=fire, temp=initialTemp fire})
 
   -- spout + nothing = spout + water
