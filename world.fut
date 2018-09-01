@@ -63,7 +63,7 @@ let initialTemp (x: element): f32 =
 
 let conductivity (p: particle): f32 =
   if p.element == metal || isFire p then 10
-  else if p.element == water || p.element == steam_water then 0.2
+  else if p.element == water || p.element == salt_water || p.element == steam_water then 0.2
   else if p.element == nothing then 0.001
   else 0.05
 

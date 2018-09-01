@@ -85,8 +85,10 @@ let applyConduction (x: particle) (y: particle): (particle, particle) =
   let diff = x.temp - y.temp in
   let c = f32.min (conductivity x) (conductivity y) * 10
   let delta = f32.max (-c) (f32.min c diff)
-  in ({element=x.element, temp=x.temp - delta},
-      {element=y.element, temp=y.temp + delta})
+  in ({element=x.element, temp= if x.element == nothing
+                                then room_temp else x.temp - delta},
+      {element=y.element, temp= if y.element == nothing
+                                then room_temp else y.temp + delta})
 
 -- Diffuse heat within a hood.
 let conduction (h: phood): phood =

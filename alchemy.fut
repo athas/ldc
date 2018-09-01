@@ -26,7 +26,7 @@ let applyAlchemy (r: i32) (xp: particle) (yp: particle) : (particle, particle) =
   else if y == water && ytemp >= 383
   then p (x, steam_water)
 
-  -- hot water + nothing = steam + salt
+  -- hot salt water + nothing = steam + salt
   else if x == salt_water && xtemp >= 373 && x == nothing
   then p (steam_water, salt)
   else if x == nothing && y == salt_water && ytemp >= 373
